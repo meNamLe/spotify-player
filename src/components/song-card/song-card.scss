@@ -4,7 +4,37 @@
         max-width: 300px;
     }
 
+    i {
+        font-size: 70px;
+        position: absolute;
+        left: 50%;
+        top: 20%;
+        margin-left: -42.5px;
+        opacity: 0;
+        height: 85px;
+        width: 85px;
+        transition: .5s;
+        border-radius: 50%;
+        background-color: aliceblue;
+        border: aliceblue 1px solid;
+    }
+    img { transition: .5s }
+
     position: absolute;
     top: 30%;
     right: 10%;
+
+    .container:hover img {
+        opacity: 0.3;
+    }
+    
+    .container:hover i {
+        opacity: 1;
+    }
+
+    i:hover {
+    }
+
+
+      
 }

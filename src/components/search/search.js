@@ -23,7 +23,7 @@ export default class Search extends Component {
         return (
             <div className="search-component">
                 <form onSubmit={this.handleSubmit}>
-                    <input type="text" value={this.state.term} onChange={this.handleChange} />
+                    <input type="text" placeholder="mmmmm lemme get uhh..." value={this.state.term} onChange={this.handleChange} />
                 </form>
             </div>
         )

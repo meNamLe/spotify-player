@@ -26,6 +26,9 @@ class SongItem extends Component {
             playing
         } = this.props.trackObj;
 
+        const conversion = Math.floor(duration / 1000);
+        const min = Math.floor(conversion / 60);
+        const seconds = conversion % 60;
 
         return (
             <div className="song-item-component">
@@ -41,7 +44,7 @@ class SongItem extends Component {
                     <h4>{trackName}</h4>
                     <h5>{artistName}</h5>
                 </div>
-                <h3 className="duration">{duration}</h3>
+                <h3 className="duration">{min}:{seconds}</h3>
             </div>
         )
     }

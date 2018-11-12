@@ -7,7 +7,7 @@ class SongCard extends Component {
     }
 
     handleClick() {
-        
+
     }
 
     render() {
@@ -22,10 +22,12 @@ class SongCard extends Component {
     
         return (
             <div className="song-card-component">
-                <img src={cover} />
+                <div className="container">
+                    <img src={cover} />
+                    <i onClick={() => this.handleClick()} className="mdi mdi-pause" />
+                </div>
                 <h2>{trackName}</h2>
                 <h3>{artistName}</h3>
-                <i onClick={() => this.handleClick()} className="mdi mdi-pause" />
             </div>
         )
     }
