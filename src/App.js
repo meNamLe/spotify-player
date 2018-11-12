@@ -24,7 +24,11 @@ class App extends Component {
         albumName: "Album Name",
         duration: 0,
         uri: '',
-        cover:  ''
+        cover:  '',
+        isPlaying: {
+          playing: true,
+          playingUri: '',
+        }
       },
       trackLoaded: false,
 
@@ -37,6 +41,7 @@ class App extends Component {
 
   }
 
+  // when token is entered
   handleLogin() {
     if (this.state.token !== "") {
       this.setState({ loggedIn: true });
@@ -87,6 +92,10 @@ class App extends Component {
         .map(artist => artist.name)
         .join(", ");
       const cover = currentTrack.album.images[0].url;
+      const isPlaying = {
+        playing: this.state.current.isPlaying.playing,
+        playingUri: uri,
+      }
       
       const playing = !state.paused;
       this.setState({
@@ -97,6 +106,7 @@ class App extends Component {
           uri,
           cover,
           duration,
+          isPlaying,
         },
         trackLoaded: true,
         playing,
@@ -104,6 +114,8 @@ class App extends Component {
     }
   }
 
+  // called by handleLogin with setIntervals
+  // index.js has a promise to set window.Spotify when ready
   checkForPlayer() {
     const { token } = this.state;
   
@@ -173,12 +185,26 @@ class App extends Component {
   }
 
   handlerPlayPause() {
-    this.player.togglePlay(); 
+    this.player.togglePlay();
+    this.helperIsPlaying();
+  }
+
+  helperIsPlaying() {
+    const current = this.state.current;
+    const { playing, playingUri } = this.state.current.isPlaying;
+    current.isPlaying = {
+      playing: !playing,
+      playingUri
+    }
+    this.setState({ current })
   }
 
   // play song by uri on active spotify device
   handlerStartSong(uri) {
     spotifyWebApi.play({"uris": [`${uri}`]});
+    if(this.state.current.isPlaying.playing === false) {
+      this.helperIsPlaying();
+    }
   }
 
   renderSongSearches() {
@@ -187,6 +213,7 @@ class App extends Component {
           <div key={trackObj.uri}>
             <SongItem 
               trackObj={trackObj}
+              current={this.state.current}
               handlerPlayPause={(uri) => this.handlerPlayPause()}
               handlerStartSong={(uri) => this.handlerStartSong(uri)} 
             />
@@ -227,7 +254,7 @@ class App extends Component {
           <div className="App-Login-Component">
             <Search searchTerm="Head In The Clouds" handlerSearch={(term) => this.handlerSearch(term)}/>
             {didSearch ? this.renderSongSearches() : ''}
-            {trackLoaded ? <SongCard handlerPlayPause={() => this.handlerPlayPause()} current={this.state.current}/> : ''}
+            {trackLoaded ? <SongCard  handlerPlayPause={() => this.handlerPlayPause()} current={this.state.current}/> : ''}
           </div>
 
         ) : (
