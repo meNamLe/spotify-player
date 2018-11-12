@@ -1,0 +1,25 @@
+.App {
+  text-align: center;
+  background-color: #0C0032;
+  height: 900px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.App-Login-Component {
+
+}
+
+.App-intro {
+  color: white;
+}
+
+.App-header {
+  min-height: 30vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+

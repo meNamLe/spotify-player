@@ -1,0 +1,52 @@
+.song-item-component {
+    background-color: #282c34;
+    width: 700px;
+    height: 70px;
+    margin-top: 10px;
+    margin-left: 40px;
+
+    i {
+        font-size: 40px;
+    }
+
+    button {
+        position: relative;
+        left: 10px;
+        top: 10px;
+        float: left;
+        text-align: center;
+        padding: 0;
+        background-color: #282c34;
+        border: none;
+        z-index: 4;
+    }
+
+    .track-artist {
+        position: relative;
+        width: inherit;
+        top: 10px;
+        left: 20px;
+        text-align: left;
+    }
+
+    h4 {
+        position: relative;
+        color: white;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 10px;
+    }
+
+    h5 {
+        color: gray;
+        margin: 10px;
+        position: relative;
+    }
+
+    .duration {
+        color: gray;
+        position: relative;
+        margin-right: -550px;
+        margin-top: -40px;
+    
+    }
+}
