@@ -46,6 +46,7 @@ class App extends Component {
     }
   }
 
+  // Spotify Web Playback SDK promises
   createEventHandlers() {
     this.player.on('initialization_error', e => { console.error(e); });
     this.player.on('authentication_error', e => {
@@ -66,10 +67,12 @@ class App extends Component {
       let { device_id } = data;
       console.log("Let the music play on!");
       await this.setState({ deviceId: device_id });
+      // 
       this.transferPlaybackHere();
     });
   }
 
+  // when song changes 
   onStateChanged(state) {
     // if we're no longer listening to music, we'll get a null state.
     if (state !== null) {
@@ -117,6 +120,8 @@ class App extends Component {
     }
   }
 
+  /* If you were listening to OneDirection last time you used Spotify
+     you will be listening to OneDirection again on startup */
   transferPlaybackHere() {
     this.handlerSearch('head in the clouds');
     const { deviceId, token } = this.state;
@@ -133,6 +138,7 @@ class App extends Component {
     });
   }
 
+  // creates each object for searchList
   searchHelper(val,idx) {
     const artistName = val.artists
       .map(artist => artist.name)
@@ -142,7 +148,6 @@ class App extends Component {
           duration = val.duration_ms,
           albumName = val.album.name,
           cover = val.album.images[0].url;
-
 
     return {
       artistName,
@@ -155,14 +160,12 @@ class App extends Component {
 
   }
 
+  // calls api for tracks and then updates state for searchList
   async handlerSearch(term) {
     await spotifyWebApi.searchTracks(term, {limit: 6}).then(data => {
       // ...render list of search results...
-      console.log(data);
       const searchList = data.tracks.items.map((val,idx) => this.searchHelper(val,idx))
       this.setState({ searchList , didSearch: true})
-      console.log(this.state.searchList);
-      console.log(this.state.current);
 
     }, function(err) {
       console.error(err);
@@ -173,6 +176,7 @@ class App extends Component {
     this.player.togglePlay(); 
   }
 
+  // play song by uri on active spotify device
   handlerStartSong(uri) {
     spotifyWebApi.play({"uris": [`${uri}`]});
   }
@@ -223,7 +227,7 @@ class App extends Component {
           <div className="App-Login-Component">
             <Search searchTerm="Head In The Clouds" handlerSearch={(term) => this.handlerSearch(term)}/>
             {didSearch ? this.renderSongSearches() : ''}
-            {trackLoaded ? <SongCard current={this.state.current}/> : ''}
+            {trackLoaded ? <SongCard handlerPlayPause={() => this.handlerPlayPause()} current={this.state.current}/> : ''}
           </div>
 
         ) : (

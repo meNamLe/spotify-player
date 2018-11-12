@@ -7,7 +7,7 @@ class SongCard extends Component {
     }
 
     handleClick() {
-
+        this.props.handlerPlayPause();
     }
 
     render() {
