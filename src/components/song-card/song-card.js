@@ -16,9 +16,6 @@ class SongCard extends Component {
             cover,
             trackName,
             artistName,
-            albumName,
-            uri,
-            duration,
         } = this.props.current;
 
         const { playing } = this.props.current.isPlaying;
