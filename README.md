@@ -7,7 +7,7 @@
 
 ### Reason For this project
 
-To play around with the Spotify Web API.]
+To play around with the Spotify Web API.
 
 ### To Run Local
 
